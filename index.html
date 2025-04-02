@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>String Converter</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .text-input {
+            height: 40px;
+            width: 200px;
+            border-radius: 20px;
+            border: 2px solid black;
+            text-align: center;
+            padding: 0 15px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+        }
+
+        .btn {
+            width: 100px;
+            height: 30px;
+            font-size: 13px;
+            border-radius: 20px;
+            background-color: white;
+            transition: all 0.2s ease-in-out;
+            cursor: pointer;
+            border: 2px solid black;
+            box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn:hover {
+            background-color: rgb(38, 37, 37);
+            color: white;
+        }
+
+        .btn:active {
+            transform: scale(0.95);
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="input-group">
+            <input type="text" class="text-input" id="input-string" placeholder="Enter the String">
+            <div class="btn-group">
+                <button type="button" class="btn" data-action="camelCase">Camel Case</button>
+                <button type="button" class="btn" data-action="reverse">Reverse</button>
+            </div>
+            <input type="text" class="text-input" id="output-string" placeholder="Result" readonly>
+        </div>
+    </div>
+    <script>
+        // String processing functions
+        const processors = {
+            camelCase: str => str.trim().toLowerCase()
+                .split(/\s+/)
+                .map((word, i) => i > 0 ? word[0]?.toUpperCase() + word.slice(1) : word)
+                .join(''),
+
+            reverse: str => [...str].reverse().join('')
+        };
+
+        // DOM elements
+        const inputEl = document.getElementById('input-string');
+        const outputEl = document.getElementById('output-string');
+        const buttons = document.querySelectorAll('[data-action]');
+
+        // Event handlers
+        const handleButtonClick = (e) => {
+            const action = e.target.dataset.action;
+            outputEl.value = processors[action](inputEl.value);
+        };
+
+        // Event listeners
+        buttons.forEach(btn => {
+            btn.addEventListener('click', handleButtonClick);
+        });
+    </script>
+</body>
+
+</html> 
