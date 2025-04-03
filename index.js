@@ -1,4 +1,3 @@
-// String processing functions
 const processors = {
   camelCase: (str) =>
     str
